@@ -1,0 +1,60 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/index/index",
+			"style": {	
+				"app-plus":{
+					"titleNView":false
+				}
+			}
+		},
+		{
+			"path": "pages/search/search",
+			"style": {		
+			}
+		},
+		{
+			"path": "pages/me/me",
+			"style": {		
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "爱在欧宝",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar":{
+		"color":"#2C405A",
+		"selectedColor":"#3F536E",
+		"borderStyle":"black",
+		"backgroundColor":"#F1F1F1",
+		"list":[
+			{
+				"pagePath":"pages/index/index",
+				"text":"首页",
+				"iconPath":"static/tabBar/icon_index.png",
+				"selectedIconPath":"static/tabBar/icon_index_selected.png"
+			},
+			{
+				"pagePath":"pages/index/index",
+				"text":"畅所欲言",
+				"iconPath":"static/tabBar/yuyan.png",
+				"selectedIconPath":"static/tabBar/yuyan2.png"
+			},
+			{
+				"pagePath":"pages/index/index",
+				"text":"达人解惑",
+				"iconPath":"static/tabBar/zixun.png",
+				"selectedIconPath":"static/tabBar/zixun_s.png"
+			},
+			{
+				"pagePath":"pages/index/index",
+				"text":"个人中心",
+				"iconPath":"static/tabBar/icon_me.png",
+				"selectedIconPath":"static/tabBar/icon_me_selected.png"
+			}
+		]
+	}
+}
