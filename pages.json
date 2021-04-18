@@ -1,4 +1,11 @@
 {
+	"easycom": {
+        // 下载安装的方式需要前面的"@/"，npm安装的方式无需"@/"
+        // 下载安装方式
+        "^u-(.*)": "@/uview-ui/components/u-$1/u-$1.vue"
+        // npm安装方式
+        // "^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
+    },
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
 			"path": "pages/index/index",
@@ -18,7 +25,25 @@
 			"style": {		
 			}
 		}
-	],
+	    ,{
+            "path" : "pages/discovery/discovery",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "畅所欲言",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/chat/chat",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "达人解惑",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "爱在欧宝",
@@ -38,19 +63,19 @@
 				"selectedIconPath":"static/tabBar/icon_index_selected.png"
 			},
 			{
-				"pagePath":"pages/index/index",
+				"pagePath":"pages/discovery/discovery",
 				"text":"畅所欲言",
 				"iconPath":"static/tabBar/yuyan.png",
 				"selectedIconPath":"static/tabBar/yuyan2.png"
 			},
 			{
-				"pagePath":"pages/index/index",
+				"pagePath":"pages/chat/chat",
 				"text":"达人解惑",
 				"iconPath":"static/tabBar/zixun.png",
 				"selectedIconPath":"static/tabBar/zixun_s.png"
 			},
 			{
-				"pagePath":"pages/index/index",
+				"pagePath":"pages/me/me",
 				"text":"个人中心",
 				"iconPath":"static/tabBar/icon_me.png",
 				"selectedIconPath":"static/tabBar/icon_me_selected.png"
