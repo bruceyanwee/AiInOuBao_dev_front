@@ -2,7 +2,7 @@
 	<view class="page_content">
 		<view class="header">
 			<image class="btn" src="/static/icon_scan.png"></image>
-			<text class="title">个人中心</text>
+			<text class="title">会员中心</text>
 			<image class="btn" src="/static/icon_msg.png"></image>
 		</view>
 		<image class="logo" src="/static/head.png"></image>
@@ -41,7 +41,7 @@
 		</scroll-view>
 
 		<view class="title_line">
-			<text class="title">宝宝福利</text>
+			<text class="title">会员福利</text>
 			<text class="more">查看更多</text>
 		</view>
 

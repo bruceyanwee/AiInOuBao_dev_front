@@ -1,5 +1,22 @@
 <template>
 	<view class="page">
+		<view class="page-block search-block">
+			<image src="../../static/pics/icon_yueling.png" style="width: 30px;height: 30px;"></image>
+			<view style="width: 200rpx;">
+				<u-dropdown>
+					<u-dropdown-item v-model="value1" title="月龄" :options="options1"></u-dropdown-item>						
+				</u-dropdown>
+			</view>			
+			<u-search placeholder="宝宝失眠怎么办" v-model="keyword"></u-search>
+		</view>
+		<view class="page-block super-hot">
+			<view class="hot-title-wapper">
+				<image src="../../static/hot-icon.png" class="hot-icon"></image>
+				<view class="hot-title">
+					爱在瓯宝
+				</view>
+			</view>
+		</view>	
 		<!--轮播图 start-->
 		<swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000" class="carousel">
 			<swiper-item>
@@ -8,6 +25,9 @@
 			<swiper-item>
 				<image src="../../static/test/lunbo2.jpeg" class="carousel"></image>
 			</swiper-item>
+			<swiper-item>
+				<image src="../../static/test/lunbo3.jpeg" class="carousel"></image>
+			</swiper-item>
 		</swiper>
 		<!--轮播图 end-->
 		<!--热门展示 start-->
@@ -15,7 +35,33 @@
 			<view class="hot-title-wapper">
 				<image src="../../static/hot-icon.png" class="hot-icon"></image>
 				<view class="hot-title">
-					热门项目
+					常用应用
+				</view>
+			</view>
+		</view>		
+		<view class="page-block applications-block">
+			<view class="app-item-wrapper">
+				<image class="app-item-img" src="../../static/pics/icon_ceping.png"></image>
+				<text>宝宝测评</text>
+			</view>
+			<view class="app-item-wrapper">
+				<image class="app-item-img" src="../../static/pics/icon_game.png"></image>
+				<text>宝宝游戏</text>
+			</view>
+			<view class="app-item-wrapper">
+				<image class="app-item-img" src="../../static/pics/icon_yuer.png"></image>
+				<text>科学育儿</text>
+			</view>
+			<view class="app-item-wrapper">
+				<image class="app-item-img" src="../../static/pics/icon_wzbaby.png"></image>
+				<text>温州宝宝</text>
+			</view>
+		</view>
+		<view class="page-block super-hot">
+			<view class="hot-title-wapper">
+				<image src="../../static/hot-icon.png" class="hot-icon"></image>
+				<view class="hot-title">
+					宝宝游戏
 				</view>
 			</view>
 		</view>		
@@ -58,11 +104,38 @@
 	export default {
 		data() {
 			return {
+				keyword: '',
+				value1:1,
+				options1: [{
+						label: '0-3月',
+						value: 1,
+					},
+					{
+						label: '6-12月',
+						value: 2,
+					},
+					{
+						label: '12-18月',
+						value: 3,
+					},
+					{
+						label: '18-24月',
+						value: 4,
+					},
+					{
+						label: '24-30月',
+						value: 5,
+					},
+					{
+						label: '30-36月',
+						value: 6,
+					}
+				],
 				test_data:"dada",
 				hot_items:[
 					{
 						id:1,
-						title:'建构游戏一',
+						title:'建构游戏',
 						img_url:'../../static/test/hot-item-poster1.jpeg',
 						score:9.1
 						},
@@ -93,9 +166,9 @@
 					},
 					{
 						id:2,
-						video_url:'../../static/test/spontaneous-trailer-1_h720p.mov',
+						video_url:'https://haokan.baidu.com/v?vid=12132011855147805324&pd=bjh&fr=bjhauthor&type=video',
 						poster:'../../static/test/spontaneous-trailer.jpeg'
-					}	
+					}
 				]
 			};
 		},
@@ -125,4 +198,34 @@
 
 <style>
 	@import url("index.css");
+.search-block{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	width: 100%;
+	height: 80rpx;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+.applications-block{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+	width: 100%;
+	height: 250rpx;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+.app-item-wrapper{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+	
+}
+.app-item-img{
+	width: 60px;
+	height: 60px;
+}
 </style>

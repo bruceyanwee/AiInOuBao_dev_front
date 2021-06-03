@@ -2,7 +2,7 @@
 	"easycom": {
         // 下载安装的方式需要前面的"@/"，npm安装的方式无需"@/"
         // 下载安装方式
-        "^u-(.*)": "@/uview-ui/components/u-$1/u-$1.vue"
+        "^u-(.*)": "@/uview-ui/uview-ui/components/u-$1/u-$1.vue"
         // npm安装方式
         // "^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
     },
@@ -22,7 +22,10 @@
 		},
 		{
 			"path": "pages/me/me",
-			"style": {		
+			"style": {	
+				"app-plus":{
+					"titleNView":false
+				}
 			}
 		}
 	    ,{
@@ -30,7 +33,10 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "畅所欲言",
-                "enablePullDownRefresh": false
+                "enablePullDownRefresh": true,
+				"app-plus":{
+					"titleNView":false
+				}
             }
             
         }
@@ -38,7 +44,19 @@
             "path" : "pages/chat/chat",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "达人解惑",
+                "navigationBarTitleText": "小瓯解惑",
+                "enablePullDownRefresh": false,
+				"app-plus":{
+					"titleNView":false
+				}
+            }
+            
+        }
+        ,{
+            "path" : "pages/test/test",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
                 "enablePullDownRefresh": false
             }
             
@@ -70,7 +88,7 @@
 			},
 			{
 				"pagePath":"pages/chat/chat",
-				"text":"达人解惑",
+				"text":"小瓯解惑",
 				"iconPath":"static/tabBar/zixun.png",
 				"selectedIconPath":"static/tabBar/zixun_s.png"
 			},

@@ -2,7 +2,6 @@
 	<view>
 		<!-- 空盒子用来防止消息过少时 拉起键盘会遮盖消息 -->
 		<view  :animation="anData"  style="height:0;">
-			
 		</view>
 		<!-- 消息体 -->
 		<scroll-view scroll-with-animation scroll-y="true"  @touchmove="hideKey"
@@ -11,7 +10,6 @@
 			<view id="okk" scroll-with-animation >
 			<!-- 消息 -->
 			<view  class="flex-column-start" v-for="(x,i) in msgList" :key="i">
-
 				<!-- 用户消息 头像可选加入-->
 				<view v-if="x.my" class="flex justify-end padding-right one-show  align-start  padding-top" >
 				<!-- 	<image v-if="!x.my" class="chat-img" src="../../static/..." mode="aspectFill" ></image> -->	
@@ -25,11 +23,12 @@
 				<!-- 机器人消息 -->
 				<view v-if="!x.my" class="flex-row-start margin-left margin-top one-show" >
 					<view class="chat-img flex-row-center">
-						<image style="height: 75rpx;width: 75rpx;" src="/static/logo.png" mode="aspectFit"></image>
+						<image style="height: 75rpx;width: 75rpx;" src="../../static/pics/icon_qa_robot.png" mode="aspectFit"></image>
 					</view>
 					<view  class="flex"  style="width: 500rpx;">
 						<view class="margin-left padding-chat flex-column-start" style="border-radius: 35rpx;background-color: #f9f9f9;">
 							<text  style="word-break: break-all;" >{{x.msg}}</text>
+							<!-- 下面是根据问答的时机，第一次载入，多个回答，单个回复选择不同的模板渲染 -->
 							<!-- 消息模板 =>初次问候 -->
 							<view class="flex-column-start" v-if="x.type==1" style="color: #2fa39b;">
 								<text style="color: #838383;font-size: 22rpx;margin-top: 15rpx;">你可以这样问我:</text>
@@ -57,9 +56,7 @@
 									<text class="my-neirong-sm">没有你要的答案?</text>
 									<text class="padding-left" style="color: #1396c5;">换一批</text>
 								</view>
-							</view>
-							
-							
+							</view>									
 						</view>
 					</view>
 				</view>
@@ -67,7 +64,7 @@
 		<!-- loading是显示 -->
 		<view v-show="msgLoad" class="flex-row-start margin-left margin-top">
 			<view class="chat-img flex-row-center">
-				<image style="height: 75rpx;width: 75rpx;" src="/static/logo.png" mode="aspectFit"></image>
+				<image style="height: 75rpx;width: 75rpx;" src="../../static/pics/icon_qa_robot.png" mode="aspectFit"></image>
 			</view>
 			<view  class="flex"  style="width: 500rpx;">
 				<view class="margin-left padding-chat flex-column-start" 
@@ -85,7 +82,6 @@
 		</view>	
 	
 		</scroll-view>		
-
 		<!-- 底部导航栏 -->
 		<view class="flex-column-center" style="position: fixed;bottom: -140px;"
 		:animation="animationData" >		
@@ -112,9 +108,6 @@
 				
 			</view>
 		</view>
-		
-	
-		
 		
 	</view>
 </template>
@@ -150,7 +143,6 @@
 				}).exec();
 			 })
 			var query=uni.getSystemInfoSync()
-						
 			l=query.screenWidth/750		
 			wh=query.windowHeight								
 			this.srcollHeight=query.windowHeight+"px"
@@ -163,8 +155,12 @@
 				showTow:false,
 				// 消息体,定义机器人初次的消息(或者自定义出现时机)
 				// my->谁发的消息 msg->消息文本 type->客服消息模板类型 questionList->快速获取问题答案的问题列表
-				msgList:[{my:false,msg:"你好我是客服机器人娜娜,请问有什么问题可以帮助您?(问候模板)",
-				type:1,questionList:["如何注销用户","我想了解业务流程","手机号如何更换"]}],
+				msgList:[{
+					my:false, 
+					msg:"你好我是育儿助手小瓯,请问您有什么育儿困惑问题？",
+					type:1,
+					questionList:["宝宝吃饭打嗝怎么办？","能给我推荐一些育儿书籍吗？"],
+					}],
 				msg:"",
 				go:0,
 				srcollHeight:0
@@ -203,8 +199,7 @@
 					query.select('#okk').boundingClientRect(data => {
 					   // 如果超过scorll高度就滚动scorll
 					   if(data.height-wh>0){
-						   this.go=data.height-wh
-						   
+						   this.go=data.height-wh				   
 					   }
 					   // 保证键盘第一次拉起时消息体能保持可见
 					   var moveY=wh-data.height
@@ -225,8 +220,7 @@
 			// 回答问题的业务逻辑
 			answer(id){
 				// 这里应该传入问题的id,模拟就用index代替了
-				console.log(id)
-				
+				console.log(id)	
 			},
 			sendMsg(){
 				// 消息为空不做任何操作
@@ -245,14 +239,16 @@
 			msgKf(x){				
 				// loading
 				this.msgLoad=true
-				// 这里连接服务器获取答案
+				// 这里连接服务器获取答案 http 请求后端接口 发送 ques str，返回	answer str	
+				
 				// 下面模拟请求
 				setTimeout(()=>{
 					// 取消loading
 					this.msgLoad=false
-					this.msgList.push({my:false,msg:"娜娜还在学习中,没能明白您的问题,您点击下方提交反馈与问题,我们会尽快人工处理(无法回答模板)",type:0,questionList:["如何注销用户","我想了解业务流程","手机号如何更换"]})
-					this.msgList.push({my:false,msg:"单消息模板",type:-1})
-					this.msgList.push({my:false,msg:"根据您的问题,已为您匹配了下列问题(多个答案模板)",type:2,questionList:["如何注销用户","我想了解业务流程","手机号如何更换"]})
+					this.msgList.push({my:false,msg:"我正在学习你的问题",type:-1})
+					// this.msgList.push({my:false,msg:"娜娜还在学习中,没能明白您的问题,您点击下方提交反馈与问题,我们会尽快人工处理(无法回答模板)",type:0,questionList:["如何注销用户","我想了解业务流程","手机号如何更换"]})
+					// this.msgList.push({my:false,msg:"单消息模板",type:-1})
+					// this.msgList.push({my:false,msg:"根据您的问题,已为您匹配了下列问题(多个答案模板)",type:2,questionList:["如何注销用户","我想了解业务流程","手机号如何更换"]})
 					this.msgGo()
 				},2000)
 			},

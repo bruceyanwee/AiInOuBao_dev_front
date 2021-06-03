@@ -1,5 +1,6 @@
 <template>
-	<view class="app">
+	<view class="app">					
+		<u-tabs :list="tab_list" :is-scroll="false" :current="current" @change="change"></u-tabs>
 		<waterfall-flow :list="list" @click="choose"></waterfall-flow>
 	</view>
 </template>
@@ -15,6 +16,16 @@
 		},
 		data() {
 			return {
+				tab_list:[
+					{
+						name:"关注"
+					},{
+						name:"发现"
+					},{
+						name:"附近"
+					}],
+				current:0,
+				keyword:'人像',
 				page: 1,
 				start: 0,
 				end: 0,
@@ -36,6 +47,9 @@
 			}, 1000);
 		},		
 		methods: {
+			change(index) {
+					this.current = index;
+				},
 			random_once(){										
 				data.list.sort(function(){
 					return 0.5-Math.random();					
