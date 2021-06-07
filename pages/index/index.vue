@@ -40,10 +40,12 @@
 			</view>
 		</view>		
 		<view class="page-block applications-block">
+			<navigator url="../test/test">
 			<view class="app-item-wrapper">
-				<image class="app-item-img" src="../../static/pics/icon_ceping.png"></image>
-				<text>宝宝测评</text>
+				<image class="app-item-img" src="../../static/pics/icon_ceping.png"></image>				
+				<text>宝宝测评</text>					
 			</view>
+			</navigator>
 			<view class="app-item-wrapper">
 				<image class="app-item-img" src="../../static/pics/icon_game.png"></image>
 				<text>宝宝游戏</text>

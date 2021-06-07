@@ -32,7 +32,7 @@
 							<!-- 消息模板 =>初次问候 -->
 							<view class="flex-column-start" v-if="x.type==1" style="color: #2fa39b;">
 								<text style="color: #838383;font-size: 22rpx;margin-top: 15rpx;">你可以这样问我:</text>
-								<text @click="answer(index)" style="margin-top: 30rpx;" 
+								<text @click="answer(item)" style="margin-top: 30rpx;" 
 								v-for="(item,index) in x.questionList" :key="index" >{{item}}</text>
 								<view class="flex-row-start  padding-top-sm">
 									<text class="my-neirong-sm">没有你要的答案?</text>
@@ -43,15 +43,15 @@
 							<view class="flex-column-start" v-if="x.type==2" style="color: #2fa39b;">
 								<text style="color: #838383;font-size: 22rpx;margin-top: 15rpx;">猜你想问:</text>
 								<!-- 连接服务器应该用item.id -->
-								<text @click="answer(index)" style="margin-top: 30rpx;" 
+								<text @click="answer(item)" style="margin-top: 30rpx;" 
 								v-for="(item,index) in x.questionList" :key="index" >{{item}}</text>
 							</view>
 							<!-- 消息模板 => 无法回答-->
 							<view class="flex-column-start" v-if="x.type==0">
 								<text class="padding-top-sm" style="color: #2fa39b;">提交意见与反馈</text>
 								<text style="color: #838383;font-size: 22rpx;margin-top: 15rpx;">下面是一些常见问题,您可以点击对应的文字快速获取答案:</text>
-								<text @click="answer(index)" style="margin-top: 30rpx;color: #2fa39b;" 
-								v-for="(item,index) in x.questionList" :key="index" >{{item}}</text>
+								<text @click="answer(query)" style="margin-top: 30rpx;color: #2fa39b;" 
+								v-for="(query,index) in x.questionList" :key="index" >{{query}}</text>
 								<view class="flex-row-start  padding-top-sm">
 									<text class="my-neirong-sm">没有你要的答案?</text>
 									<text class="padding-left" style="color: #1396c5;">换一批</text>
@@ -159,7 +159,7 @@
 					my:false, 
 					msg:"你好我是育儿助手小瓯,请问您有什么育儿困惑问题？",
 					type:1,
-					questionList:["宝宝吃饭打嗝怎么办？","能给我推荐一些育儿书籍吗？"],
+					questionList:["宝宝吃饭打嗝怎么办？","能给我推荐一些育儿书籍吗？","宝宝老是爱哭"],
 					}],
 				msg:"",
 				go:0,
@@ -218,9 +218,11 @@
 				},100)
 			},
 			// 回答问题的业务逻辑
-			answer(id){
+			answer(item){
 				// 这里应该传入问题的id,模拟就用index代替了
-				console.log(id)	
+				console.log(item)
+				this.msg = item;
+				this.sendMsg();		
 			},
 			sendMsg(){
 				// 消息为空不做任何操作
@@ -238,19 +240,41 @@
 			},
 			msgKf(x){				
 				// loading
-				this.msgLoad=true
+				const that = this;
+				that.msgLoad=true
 				// 这里连接服务器获取答案 http 请求后端接口 发送 ques str，返回	answer str	
-				
+				uni.request({
+				    url: 'http://106.13.225.94:5000/query', //仅为示例，并非真实接口地址。
+				    data: {
+				        query: that.msg
+				    },
+				    header: {
+				    	'content-type': 'application/x-www-form-urlencoded', 
+				    },
+					method:'POST',
+				    success: (res) => {
+						if(res.statusCode == 200){
+							console.log(res.data);							
+							that.msgList.push({my:false,msg:res.data['answer'][0],type:-1});
+							that.msgGo()
+						}else{
+							console.log(res.data);
+						}
+				    }
+				});
+				// 取消loading
+				that.msgLoad=false;
 				// 下面模拟请求
-				setTimeout(()=>{
-					// 取消loading
-					this.msgLoad=false
-					this.msgList.push({my:false,msg:"我正在学习你的问题",type:-1})
-					// this.msgList.push({my:false,msg:"娜娜还在学习中,没能明白您的问题,您点击下方提交反馈与问题,我们会尽快人工处理(无法回答模板)",type:0,questionList:["如何注销用户","我想了解业务流程","手机号如何更换"]})
-					// this.msgList.push({my:false,msg:"单消息模板",type:-1})
-					// this.msgList.push({my:false,msg:"根据您的问题,已为您匹配了下列问题(多个答案模板)",type:2,questionList:["如何注销用户","我想了解业务流程","手机号如何更换"]})
-					this.msgGo()
-				},2000)
+				that.msgGo()
+				// setTimeout(()=>{
+				// 	// 取消loading
+				// 	that.msgLoad=false;
+				// 	// this.msgList.push({my:false,msg:"我正在学习你的问题",type:-1})
+				// 	// this.msgList.push({my:false,msg:"娜娜还在学习中,没能明白您的问题,您点击下方提交反馈与问题,我们会尽快人工处理(无法回答模板)",type:0,questionList:["如何注销用户","我想了解业务流程","手机号如何更换"]})
+				// 	// this.msgList.push({my:false,msg:"单消息模板",type:-1})
+				// 	// this.msgList.push({my:false,msg:"根据您的问题,已为您匹配了下列问题(多个答案模板)",type:2,questionList:["如何注销用户","我想了解业务流程","手机号如何更换"]})
+				// 	that.msgGo()
+				// },500)
 			},
 			// 不建议输入框聚焦时操作此动画
 			ckAdd(){
