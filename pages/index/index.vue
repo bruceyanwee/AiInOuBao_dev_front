@@ -46,10 +46,12 @@
 				<text>宝宝测评</text>					
 			</view>
 			</navigator>
+			<navigator url="../baby_game/baby_game">
 			<view class="app-item-wrapper">
 				<image class="app-item-img" src="../../static/pics/icon_game.png"></image>
 				<text>宝宝游戏</text>
 			</view>
+			</navigator>
 			<view class="app-item-wrapper">
 				<image class="app-item-img" src="../../static/pics/icon_yuer.png"></image>
 				<text>科学育儿</text>
@@ -144,20 +146,20 @@
 					{
 						id:2,
 						title:'益智游戏',
-						img_url:'../../static/test/hot-item-poster1.jpeg',
+						img_url:'../../static/pics/game_yizhi.jpeg',
 						score:8.2
 						},
 					{
 						id:3,
-						title:'益智游戏',
-						img_url:'../../static/test/hot-item-poster1.jpeg',
+						title:'语言游戏',
+						img_url:'../../static/pics/game_lang.jpeg',
 						score:5.9
 						},
 					{
 						id:4,
-						title:'益智游戏',
-						img_url:'../../static/test/hot-item-poster1.jpeg',
-						score:2.0
+						title:'音乐游戏',
+						img_url:'../../static/pics/game_music.jpeg',
+						score:7.0
 						}
 				],
 				hot_videos:[

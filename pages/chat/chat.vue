@@ -76,14 +76,12 @@
 			</view>	
 		</view>
 		<!-- 防止消息底部被遮 -->
-		<view style="height: 120rpx;">
-			
+		<view style="height: 120rpx;">			
 		</view>
-		</view>	
-	
+		</view>		
 		</scroll-view>		
 		<!-- 底部导航栏 -->
-		<view class="flex-column-center" style="position: fixed;bottom: -140px;"
+		<view class="flex-column-center" style="position: fixed;bottom: -180px;"
 		:animation="animationData" >		
 			<view class="bottom-dh-char flex-row-around" style="font-size: 55rpx;">
 				<!-- vue无法使用软键盘"发送" -->
@@ -103,7 +101,7 @@
 				</view>
 				<view class="tb-text">
 					<view class="cuIcon-form"></view>
-					<text>人工客服</text>
+					<text @click="man_answer">人工客服</text>
 				</view>
 				
 			</view>
@@ -217,7 +215,22 @@
 					}).exec();
 				},100)
 			},
-			// 回答问题的业务逻辑
+			//人工客服
+			man_answer(){
+				const that = this;
+				that.msgLoad=true
+				setTimeout(()=>{
+					// 取消loading
+					that.msgLoad=false;
+					that.msgList.push({my:false,msg:"欢迎加入育儿群交流：QQ群1：7909310381",type:-1})
+					// this.msgList.push({my:false,msg:"我正在学习你的问题",type:-1})
+					// this.msgList.push({my:false,msg:"娜娜还在学习中,没能明白您的问题,您点击下方提交反馈与问题,我们会尽快人工处理(无法回答模板)",type:0,questionList:["如何注销用户","我想了解业务流程","手机号如何更换"]})
+					// this.msgList.push({my:false,msg:"单消息模板",type:-1})
+					// this.msgList.push({my:false,msg:"根据您的问题,已为您匹配了下列问题(多个答案模板)",type:2,questionList:["如何注销用户","我想了解业务流程","手机号如何更换"]})
+					that.msgGo()
+				},400)
+			},
+			// 回答问题的业务逻辑			
 			answer(item){
 				// 这里应该传入问题的id,模拟就用index代替了
 				console.log(item)
@@ -290,12 +303,10 @@
 			},
 			// 拉起/收回附加栏
 			upTowmn(x,t){
-				
 				 var animation = uni.createAnimation({
 				      duration: t,
 				        timingFunction: 'ease',
-				    })
-				 				
+				    })	
 				    this.animation = animation
 				 				
 				    animation.translateY(x).step()

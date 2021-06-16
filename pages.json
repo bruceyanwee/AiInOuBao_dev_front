@@ -8,9 +8,11 @@
     },
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
-			"path": "pages/index/index",
+			"path": "pages/index/index",			
 			"style": {	
-				"app-plus":{
+				"navigationBarTitleText": "首页",
+				"enablePullDownRefresh": false,
+				"app-plus":{					
 					"titleNView":false
 				}
 			}
@@ -35,7 +37,7 @@
                 "navigationBarTitleText": "畅所欲言",
                 "enablePullDownRefresh": true,
 				"app-plus":{
-					"titleNView":false
+					"titleNView":true
 				}
             }
             
@@ -47,13 +49,84 @@
                 "navigationBarTitleText": "小瓯解惑",
                 "enablePullDownRefresh": false,
 				"app-plus":{
-					"titleNView":false
+					"titleNView":true
 				}
             }
             
         }
         ,{
             "path" : "pages/test/test",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "宝宝测评",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+		,{
+		    "path" : "pages/login/login",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
+		,{
+		    "path" : "pages/login/agreement",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		},
+		{
+		    "path" : "pages/login/forget",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		},
+		{
+		    "path" : "pages/login/reg",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
+        ,{
+            "path" : "pages/test_report/test_report",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/baby_game/baby_game",
+            "style" : {
+                "enablePullDownRefresh": false,
+                "navigationBarTitleText": "宝宝游戏"
+            }
+            
+        }
+        ,{
+            "path" : "pages/detail/detail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/baby_game/game_detail",
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",

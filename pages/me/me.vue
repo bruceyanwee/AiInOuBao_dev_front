@@ -1,32 +1,36 @@
 <template>
 	<view class="page_content">
 		<view class="header">
-			<image class="btn" src="/static/icon_scan.png"></image>
-			<text class="title">个人中心</text>
-			<image class="btn" src="/static/icon_msg.png"></image>
-		</view>
-		<image class="logo" src="/static/head.png"></image>
-
+			<text class="header-title"> 个人中心 </text>
+			<view class="touxiang">
+				<image class="logo" src="../../static/pics/avater_img.png"></image>
+				<navigator url="../login/login">
+					<text class="uer-name">Hi，{{login ? uerInfo.name : '您未登录'}}</text>
+				</navigator>				
+			</view>						
+		</view>		
 		<swiper @change="swiperChange" previous-margin="50px" next-margin="50px" class="swiper" :indicator-dots="false"
 		 :autoplay="false" :interval="3000" :duration="1000" :current="bigIdx">
-
-			<template v-for="(vip, i) in vips">
-				<swiper-item :key="'vip_'+i">
-					<view :class="['swiper-item',bigIdx === i ? 'big' : 'small']" :style="{background:vip.bg,'box-shadow':vip.shadow}">
-						<image class="img" src="/static/icon_vip.png"></image>
-						<text class="title">{{vip.title}}</text>
-						<text class="sub_title">{{vip.subTitle}}</text>
+		
+			<template v-for="(p, i) in prefers">
+				<swiper-item :key="'p_'+i">
+					<view :class="['swiper-item',bigIdx === i ? 'big' : 'small']" :style="{background:p.bg,'box-shadow':p.shadow}">
+						<image class="img" :src="p.icon"></image>
+						<navigator :url="p.page_url">
+							<text class="title">{{p.title}}</text>
+						</navigator>						
+						<text class="sub_title">{{p.subTitle}}</text>
 					</view>
 				</swiper-item>
 			</template>
-
+		
 		</swiper>
-
+		
 		<view class="title_line">
-			<text class="title">我的任务</text>
+			<text class="title">温州宝宝</text>
 			<text class="more">查看更多</text>
 		</view>
-
+		
 		<scroll-view class="slider" scroll-x="true">
 			<template v-for="(task,i) in tasks">
 				<view :key="'task_'+i" class="s_item">
@@ -34,7 +38,7 @@
 						<image :src="task.icon" class="img"></image>
 						<text class="name">{{task.name}}</text>
 						<text class="desc">{{task.desc}}</text>
-						<text class="btn">去完成</text>
+						<text class="btn" @click="goto_page" :id="task.page_url">试一试</text>
 					</view>
 				</view>
 			</template>
@@ -62,62 +66,73 @@
 	export default {
 		data() {
 			return {
-				title: 'Hello',
+				login:false,
+				avater_src:'../../static/pics/avater_img.png',
+				uerInfo:{
+					name:'温宝_Andy',					
+				},
+				avater_text:'温宝_Andy',
+				title: 'Hello',				
 				bigIdx: 1,
-				vips: [{
+				prefers: [{
 					bg: 'linear-gradient(94deg,rgba(150,147,168,1),rgba(150,147,164,1))',
 					shadow: '0px 3px 12px 0px rgba(195,164,110,0.23)',
-					title: 'VIP会员',
-					subTitle: '距离下一等级还差888积分'
-				}, {
-					bg: 'linear-gradient(94deg,rgba(192,160,105,1),rgba(233,213,172,1))',
-					shadow: '0px 3px 12px 0px rgba(195,164,110,0.23)',
-					title: 'VIP会员',
-					subTitle: '距离下一等级还差888积分'
+					title: '测评报告',
+					icon:'/static/pics/baogao.png',
+					subTitle: '根据宝宝测评形成的个性化报告',
+					page_url:'../test_report/test_report'
 				}, {
 					bg: 'linear-gradient(94deg,rgba(150,147,168,1),rgba(150,147,164,1))',
 					shadow: '0px 3px 12px 0px rgba(195,164,110,0.23)',
-					title: 'VIP会员',
-					subTitle: '距离下一等级还差888积分'
+					title: '宝宝偏好',
+					icon:'/static/pics/like.png',
+					subTitle: '根据平时浏览记录形成的宝宝偏好',
+					page_url:'../vis_text_use/vis_text_use',
 				}],
 				tasks: [{
-						icon: '/static/icon_signin.png',
-						name: '连续7天签到',
-						desc: '连续签到获得7积分奖励'
+						icon: '/static/pics/ouxiu.jpeg',
+						name: '温州瓯绣',
+						desc: '瓯绣，与苏绣...',
+						page_url:'../RcSimPhoto/RcSimPhoto'
 					},
 					{
-						icon: '/static/icon_profile.png',
-						name: '完善个人信息',
-						desc: '完善信息获得7积分奖励'
+						icon: '/static/pics/bandenglong.jpeg',
+						name: '民间舞蹈(板凳龙)',
+						desc: '板凳龙起源于...',
+						page_url:'../RcPhotoCourse/RcPhotoCourse'
 					},
 					{
-						icon: '/static/icon_friend.png',
-						name: '邀请好友参加',
-						desc: '邀请好友获得7积分奖励'
+						icon: '/static/pics/guci.jpeg',
+						name: '民间故事',
+						desc: '温州鼓词',
+						page_url:'../RcPhotoTheory/RcPhotoTheory'
 					}
 				],
 				welfare: [{
-						icon: '/static/icon_evaluate.png',
-						name: '专属礼包'
+						icon: '/static/pics/zuoping.png',
+						name: '我的作品'
 					},
 					{
-						icon: '/static/icon_gift.png',
-						name: '生日礼包'
+						icon: '/static/pics/liwu.png',
+						name: '礼物'
 					},
 					{
-						icon: '/static/icon_score.png',
-						name: '我的积分'
+						icon: '/static/pics/shoucang.png',
+						name: '收藏'
 					},
 					{
-						icon: '/static/icon_other.png',
-						name: '其他礼包'
+						icon: '/static/pics/friend.png',
+						name: '好友'
 					}
 				]
 
 			}
 		},
 		onLoad() {
-
+			this.login = getApp().globalData.is_login
+		},
+		onShow(){
+			this.login = getApp().globalData.is_login
 		},
 		methods: {
 			swiperChange(e) {
@@ -147,35 +162,35 @@
 	}
 
 	.header {
-		padding-top: var(--status-bar-height);
-		width: 95%;
+		margin-top: 20px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+	.header-title {
+		margin-top: 20px;
+		font-size: 30px;
+		font-weight: 500;
+		color: rgba(43, 43, 43, 1);
+		line-height: 41px;
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.touxiang{
 		display: flex;
 		flex-direction: row;
 		align-items: center;
-		margin-left: 10px;
-		margin-right: 10px;
-
-		.btn {
-			width: 27px;
-			height: 27px;
-		}
-
-		.title {
-			font-size: 18px;
-			font-weight: 500;
-			color: rgba(43, 43, 43, 1);
-			line-height: 41px;
-			width: 100%;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-		}
 	}
-
+	.uer-name{
+		font-size: 20px;
+		
+	}
 	.logo {
 		margin-top: 10px;
-		width: 100px;
-		height: 100px;
+		width: 80px;
+		height: 80px;
 	}
 
 	.swiper {
@@ -287,12 +302,12 @@
 				box-shadow: 0px 2px 6px 0px rgba(103, 103, 103, 0.2);
 
 				.img {
-					width: 103px;
-					height: 105px;
+					width: 100px;
+					height:100px;
 				}
 
 				.name {
-					margin-top: -10px;
+					margin-top: 10px;
 					font-size: 12px;
 					font-weight: 400;
 					color: rgba(51, 51, 51, 1);

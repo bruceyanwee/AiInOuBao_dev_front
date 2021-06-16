@@ -8,6 +8,9 @@
 		},
 		onHide: function() {
 			console.log('App Hide')
+		},
+		globalData:{
+			is_login:false
 		}
 	}
 </script>

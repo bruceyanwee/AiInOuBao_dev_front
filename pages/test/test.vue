@@ -22,6 +22,9 @@
 			 */
 			handleSubmit(answerList){
 				console.log(answerList)
+				uni.navigateTo({
+					url:"../test_report/test_report"
+				})
 			},
 			/* 题目答案变化
 			 */
